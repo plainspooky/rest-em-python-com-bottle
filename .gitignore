@@ -1,0 +1,7 @@
+py3
+*.pyc
+__pycache__/*
+*.db
+.vagrant/*
+*.swp
+Vagrantfile

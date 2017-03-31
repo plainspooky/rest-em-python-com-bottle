@@ -1,0 +1,36 @@
+[{
+	"type": "str",
+	"field": "name",
+	"label": "Nome",
+	"size": 80,
+	"required": true,
+	"tip": "digite seu nome"
+}, {
+	"type": "str",
+	"field": "cpf",
+	"label": "CPF",
+	"size": 11,
+	"required": true,
+	"tip": "digite o número do seu CPF sem pontos e hífem"
+}, {
+	"type": "str",
+	"field": "address",
+	"label": "Endereço",
+	"size": 128,
+	"required": true,
+	"tip": "digite seu endereço completo"
+}, {
+	"type": "tel",
+	"field": "phone",
+	"label": "Número de telefone",
+	"size": 16,
+	"required": true,
+	"tip": "digite o número do seu telefone"
+}, {
+	"type": "email",
+	"field": "email",
+	"label": "Endereço de e-mail",
+	"size": 32,
+	"required": true,
+	"tip": "digite seu endereço de e-mail"
+}]
