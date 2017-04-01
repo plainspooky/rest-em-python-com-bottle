@@ -23,7 +23,7 @@ def new_user():
     # template que o "desenha" em HTML+Bootstrap CSS
     with open('static/json/users.json', 'r') as f:
         form_structure = json.load(f)
-    return template('template/user.tpl',form=form_structure)
+    return template('template/new.tpl',form=form_structure)
 
 @route('/static/<fname:path>')
 def static(fname):
