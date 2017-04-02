@@ -20,4 +20,4 @@
                 </table>
             </div>
         </div>
-%include('template/footer.tpl',js='show.js')
+%include('template/footer.tpl',js=['show.js'])

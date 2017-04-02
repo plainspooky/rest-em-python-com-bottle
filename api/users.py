@@ -74,19 +74,83 @@ def retrieve():
     response.headers['Cache-Control'] = 'no-cache'
     return json.dumps(json_output)
 
-@delete('/users/<user>')
+@get('/users/<user:int>')
+def retrieve(user):
+    '''trata a recuperação da informação de um único usuário'''
+    try:
+        # consulta a base de dados
+        if user>0:
+            cursor.execute('''SELECT id,name,address,cpf,phone,email,sites FROM users WHERE id=? LIMIT 1''',(str(user)))
+            connection.commit()
+            row=cursor.fetchone()
+            if not row:
+                # se o registro não existe, sinaliza erro
+                raise KeyError
+            else:
+                json_output=[{ 'id':row[0], 'name':row[1], 'cpf':row[2], 'address':row[3], 'phone':row[4], 'email':row[5], 'sites':row[6]}]
+        else:
+            raise KeyError
+    except KeyError:
+        response.status=404
+        return
+
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps(json_output)
+
+@put('/users/<user:int>')
+def update(user):
+    '''trata a atualização dos registros'''
+    try:
+        try:
+            # recupera os dados enviados em JSON
+            data = request.json
+        except:
+            # não há JSON, sinaliza erro
+            raise ValueError
+
+        if data is None:
+            # o JSON está vazio, sinaliza erro
+            raise ValueError
+
+        try:
+            # recupera as informações e ao mesmo tempo valida as chaves do JSON
+            # o ID do usuário fica no final da tupla
+            record = (data['name'],data['cpf'],data['address'],data['phone'],data['email'],data['sites'],str(user))
+        except:
+            # faltam chaves no JSON, sinaliza erro
+            raise ValueError
+    except ValueError:
+        # algo diferente ao esperado foi recebido, retorna '400 Bad Request'
+        response.status=400
+        return
+
+    try:
+        # atualiza o registro no banco de dados
+        cursor.execute('''UPDATE users SET name=?,cpf=?,address=?,phone=?,email=?,sites=? WHERE id=?''',record)
+        connection.commit()
+    except:
+        # algo aconteceu, retorna com '500 Internal Server Error'
+        response.status=500
+        return
+
+    # retorna '200 success' com o ID do registro inserido
+    response.status=200
+    return
+
+@delete('/users/<user:int>')
 def delete(user):
     '''trata a remoção de registros'''
     try:
         # consulta a base de dados antes de remover
-        cursor.execute('''SELECT id FROM users WHERE id=? LIMIT 1''',(user))
+        cursor.execute('''SELECT id FROM users WHERE id=? LIMIT 1''',(str(user)))
         connection.commit()
         if len(cursor.fetchall())==0:
             # se o registro não existe, sinaliza erro
             raise KeyError
         else:
             # senão o remove do banco de dados
-            cursor.execute('''DELETE FROM users WHERE id=? LIMIT 1''',(user))
+            cursor.execute('''DELETE FROM users WHERE id=? LIMIT 1''',(str(user)))
             connection.commit()
 
     except KeyError:

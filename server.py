@@ -25,6 +25,20 @@ def new_user():
         form_structure = json.load(f)
     return template('template/new.tpl',form=form_structure)
 
+@route('/edit/<user:int>')
+def edit_user(user):
+    '''
+        formulário de alteração de usuários
+    '''
+    if user>0:
+        # assim como no caso anterior o formulário é definido através de um arquovo
+        # JSON que é enviado ao template que o "desenha" em HTML+Bootstrap CSS
+        with open('static/json/users.json', 'r') as f:
+            form_structure = json.load(f)
+        return template('template/edit.tpl',form=form_structure)
+    else:
+        return template('template/400.tpl')
+
 @route('/static/<fname:path>')
 def static(fname):
     '''
