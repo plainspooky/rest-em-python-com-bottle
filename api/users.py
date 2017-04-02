@@ -87,7 +87,7 @@ def retrieve(user):
                 # se o registro não existe, sinaliza erro
                 raise KeyError
             else:
-                json_output=[{ 'id':row[0], 'name':row[1], 'cpf':row[2], 'address':row[3], 'phone':row[4], 'email':row[5], 'sites':row[6]}]
+                json_output=[{ 'id':row[0], 'name':row[1], 'address':row[2], 'cpf':row[3], 'phone':row[4], 'email':row[5], 'sites':row[6]}]
         else:
             raise KeyError
     except KeyError:
@@ -134,7 +134,7 @@ def update(user):
         response.status=500
         return
 
-    # retorna '200 success' com o ID do registro inserido
+    # retorna '200 success' confirmando a alteração
     response.status=200
     return
 
