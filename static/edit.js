@@ -18,7 +18,6 @@ $(document).ready(function(){
 
         // alimenta os campos do formulário
         $.getJSON(jsonUrl,function(data){
-            console.log(JSON.stringify(data));
             $("input#input_name").val(data[0]['name']);
             $("input#input_address").val(data[0]['address']);
             $("input#input_email").val(data[0]['email']);
@@ -26,7 +25,6 @@ $(document).ready(function(){
             $("input#input_phone").val(data[0]['phone']);
             // popula a lista de sites de um jeito feio pacas (aceito sugestões)
             site_list=data[0]['sites'].split(',');
-            console.log(site_list.length);
             for (var site=0; site<site_list.length; site++){
                 $("#input_site").val(site_list[site]);
                 addSite();
