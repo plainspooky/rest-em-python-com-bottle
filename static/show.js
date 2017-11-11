@@ -14,8 +14,8 @@ $(document).ready(function(){
         var documentData=$.map(data, function(value,i){
         return $("<tr id=\"id"+value['id']+"\"><td>"+value['id']+"</td>"+
             "<td><a href=\"/edit/"+value['id']+"\">"+value['name']+"</a></td>"+
-            "<td>"+value['cpf']+"</td>"+
             "<td>"+value['address']+"</td>"+
+            "<td>"+value['cpf']+"</td>"+
             "<td>"+value['phone']+"</td>"+
             "<td><a href=\"mailto:"+value['email']+"\">"+value['email']+"</a></td>"+
             "<td>"+formatSites(value['sites'])+"</td>"+
