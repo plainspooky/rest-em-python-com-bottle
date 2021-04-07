@@ -1,2 +1,2 @@
-bottle==0.12.10
+bottle==0.12.19
 pkg-resources==0.0.0
